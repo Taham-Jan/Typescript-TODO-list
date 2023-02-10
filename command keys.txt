@@ -1,0 +1,41 @@
+goto to backend folder
+right click open terminal
+npm init -y ----this will create a package.json template
+code . ----- open folder in vs code
+open terminal
+npm i --save-dev typescript ---- to install typescript
+npx tsc --init 	---necessary for typescript
+npm i express 
+npm i --save-dev @types/express
+npx tsc to convert ts code to js since we cant directly node "server.ts"
+
+************** THIS WE DO IN PRODUCTION **********************
+
+to make server.js mimic main file
+in tsconfig.json uncomment outdir and insert ./dist
+then do npx tsc in terminal
+dist folder will be created to run the node = node dist/server.js
+
+******************************************************************
+************** THIS WE DO IN DEVELOPMENT**********************
+
+-To constantly make changes on port without doing npx tsc we use DevDependency of nodemon
+
+			npm i --save-dev nodemon
+
+-To use nodemon with Typescript we need node ts
+
+			npm i -D ts-node
+
+now finally npx nodemon src/server.ts
+******************************************************************
+
+-D(--save-dev)
+now install more devdependency = npm i -D eslint
+to setup eslint = npx eslint --init
+
+
+-It checks if there are some common typos or undefined errors
+npx eslint .est .ts
+-we can set it up in package json as a short key
+ "lint":"eslint . --ext .ts",
