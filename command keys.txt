@@ -39,3 +39,10 @@ to setup eslint = npx eslint --init
 npx eslint .est .ts
 -we can set it up in package json as a short key
  "lint":"eslint . --ext .ts",
+
+
+
+-If we have an undefined port our project will still work to solve it we download an ENVALID dependency
+and create util folder and make a validateenv file
+after creating the file import in file where env is used and replace 
+process.env ===> env.
