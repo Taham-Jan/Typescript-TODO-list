@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import logo from './logo.svg';
-import { Button } from 'react-bootstrap';
+import { Button, Col, Container, Row } from 'react-bootstrap';
 import { todolist as listModel } from './models/todolistModel';
 import Todolist from './components/Todolist';
+import styles from './styles/AllNotes.module.css'
 
 function App() {
   const [Todo, setTodo] = useState<listModel[]>([]);
@@ -20,12 +21,21 @@ function App() {
       }
     }
     loadList();
-  },[]);
+  }, []);
 
   return (
-    <>{
-      Todo.map(item => <Todolist list={item} key={item._id}/>)
-    }</>
+    <Container>
+      <Row xs={1} md={2} xl={3} className="g-4">
+       
+          {
+          Todo.map(item => ( 
+          <Col  key={item._id} >
+            <Todolist list={item} className={styles.note}/>
+          </Col> 
+          ))}
+    
+      </Row>
+    </Container>
   );
 }
 

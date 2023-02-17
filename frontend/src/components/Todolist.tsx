@@ -1,13 +1,16 @@
 import { Card } from 'react-bootstrap';
 import { ListGroup } from 'react-bootstrap';
 import { todolist as listModel } from '../models/todolistModel';
+import styles from '../styles/Todo.module.css'
+import { formatDate } from './formatDate';
 
 
 interface listProps {
   list: listModel,
+  className?: string,
 };
 
-const Todolist = ({ list }: listProps) => {
+const Todolist = ({ list , className}: listProps) => {
 
   const {
     _id,
@@ -16,31 +19,38 @@ const Todolist = ({ list }: listProps) => {
     createdAt,
     updatedAt,
   } = list;
+let createdUpdatedDate: string;
+if (updatedAt>createdAt)
+{
+  createdUpdatedDate = "Updated: " + formatDate(updatedAt);
+}
+else{
+  createdUpdatedDate = "Created: " + formatDate(createdAt);
+}
 
   return (
     <div>
-      <Card style={{ width: '18rem' }}>
+      <Card className={`${styles.cardlist} ${className}`}>
         <Card.Img variant="top" src="/todolisticon.png" />
         <Card.Body>
           <Card.Title>{title}</Card.Title>
           <Card.Text>
-            Some quick example text to build on the card title and make up the
-            bulk of the card's content.
+            Following is the todo list.
           </Card.Text>
         </Card.Body>
-        <ListGroup className="list-group-flush">
-
+        <ListGroup className="list-group-flush" id={styles.listgroup}>
             {
               todo?.map((item,_id)=>{
-                return <ListGroup.Item key={_id}>{item}</ListGroup.Item>
-              }
-)            }
+                return <ListGroup.Item key={_id} className={styles.listitem}>{item}</ListGroup.Item>
+              })
+            }
 
         </ListGroup>
-        <Card.Body>
-          <Card.Link href="#">Card Link</Card.Link>
-          <Card.Link href="#">Another Link</Card.Link>
-        </Card.Body>
+        <Card.Footer>
+          {createdUpdatedDate}
+        <br></br>
+          <Card.Link href="#">Click To Expand</Card.Link>
+        </Card.Footer>
       </Card>
     </div>
   )
