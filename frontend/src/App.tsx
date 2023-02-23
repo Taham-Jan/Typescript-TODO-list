@@ -3,16 +3,19 @@ import logo from './logo.svg';
 import { Button, Col, Container, Row } from 'react-bootstrap';
 import { todolist as listModel } from './models/todolistModel';
 import Todolist from './components/Todolist';
-import styles from './styles/AllNotes.module.css'
+import styles from './styles/AllNotes.module.css';
+import * as List_api from './Routes/todolist';
+import AddNewDialog from './components/AddNewDialog';
 
 function App() {
   const [Todo, setTodo] = useState<listModel[]>([]);
 
+  const [showAddNewDialog,setshowAddNewDialog] = useState(false);
+
   useEffect(() => {
     async function loadList() {
       try {
-        const response = await fetch("/api/todolist");
-        const Todo = await response.json();
+       const Todo = await List_api.fetchTodoList();
         setTodo(Todo)
 
       } catch (error) {
@@ -25,6 +28,7 @@ function App() {
 
   return (
     <Container>
+      <Button onClick={()=> setshowAddNewDialog(true)}>ADD</Button>
       <Row xs={1} md={2} xl={3} className="g-4">
        
           {
@@ -35,6 +39,7 @@ function App() {
           ))}
     
       </Row>
+      {showAddNewDialog && <AddNewDialog onDismiss={()=>setshowAddNewDialog(false)}/>}
     </Container>
   );
 }

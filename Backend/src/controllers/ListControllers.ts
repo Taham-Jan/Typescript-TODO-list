@@ -6,6 +6,7 @@ import mongoose from 'mongoose';
 
 export const listController:RequestHandler = async (req, res, next) => {
     try {
+        
        const todolists = await listModel.find().exec();
        res.status(200).json(todolists);
     } catch (error) {
